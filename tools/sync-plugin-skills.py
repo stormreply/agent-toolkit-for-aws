@@ -10,6 +10,9 @@ Usage:
     python3 tools/sync-plugin-skills.py              # sync all plugins
     python3 tools/sync-plugin-skills.py --plugin X   # sync one plugin
     python3 tools/sync-plugin-skills.py --check      # exit 1 if out of sync
+
+Plugins listed in REQUIRE_CANONICAL must have a canonical skills/ source for
+every bundled skill; a bundled skill without one is reported as an error.
 """
 from __future__ import annotations
 
@@ -20,6 +23,10 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+
+# Plugins whose bundled skills must all exist under skills/ (the canonical
+# catalog). Other plugins may ship plugin-only skills.
+REQUIRE_CANONICAL = {"aws-core"}
 
 
 def build_canonical_index() -> dict[str, Path]:
@@ -57,6 +64,11 @@ def sync_plugin(plugin_dir: Path, canonical: dict[str, Path], check_only: bool) 
             continue
         source = canonical.get(bundled.name)
         if source is None:
+            if plugin_dir.name in REQUIRE_CANONICAL:
+                errors.append(
+                    f"{plugin_dir.name}: {bundled.name} has no canonical source under skills/"
+                    f" (copy it to skills/<category>/{bundled.name}/)"
+                )
             continue
 
         if trees_match(source, bundled):

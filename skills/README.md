@@ -40,7 +40,7 @@ Core skills cover:
 - AWS SDK usage patterns (Python, JavaScript, Swift)
 - Infrastructure as code (CDK, CloudFormation)
 - Compute (serverless, containers)
-- Security and identity (IAM)
+- Security and identity (IAM, Secrets Manager)
 - Observability (CloudWatch, X-Ray, CloudTrail)
 - Application integration (messaging, streaming)
 - Cost management (Billing and Cost Management)

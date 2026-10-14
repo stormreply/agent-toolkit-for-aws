@@ -52,6 +52,7 @@ This plugin includes the following default skills:
 | aws-blocks | Build full-stack applications with AWS Blocks |
 | aws-database | Route any AWS database task to the right service and skill |
 | aws-well-architected-review | Review a workload against the Well-Architected Framework across all six pillars |
+| aws-secrets-manager | Reference secrets at runtime with `asm-exec` without exposing plaintext to the agent |
 
 ### Rules files
 
